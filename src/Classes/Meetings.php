@@ -13,9 +13,23 @@ class Meetings extends Request
      * @param string $userId
      * @return array|mixed
      */
-    public function list(string $userId)
+    public function list(string $userId, array $queryParameters = [])
     {
-        return $this->get("users/{$userId}/meetings");
+        return $this->get("users/{$userId}/meetings", $queryParameters);
+    }
+
+    /**
+     * Get users page
+     *
+     * @param int $page
+     * @param array $queryParameters
+     * @return array
+     */
+    public function getPage(string $userId, int $page = 1, array $queryParameters = []) : array
+    {
+        return $this->list($userId, array_merge([
+            'page_number' => $page
+        ], $queryParameters));
     }
 
     /**

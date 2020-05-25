@@ -29,9 +29,23 @@ class Users extends Request
      *
      * @return array
      */
-    public function list() : array
+    public function list(array $queryParameters) : array
     {
-        return $this->get('users');
+        return $this->get('users', $queryParameters);
+    }
+
+    /**
+     * Get users page
+     *
+     * @param int $page
+     * @param array $queryParameters
+     * @return array
+     */
+    public function getPage(int $page = 1, array $queryParameters = []) : array
+    {
+        return $this->list(array_merge([
+            'page_number' => $page
+        ], $queryParameters));
     }
 
     /**
