@@ -21,6 +21,7 @@ class Meetings extends Request
     /**
      * Get users page
      *
+     * @param string $userId
      * @param int $page
      * @param array $queryParameters
      * @return array
@@ -30,6 +31,39 @@ class Meetings extends Request
         return $this->list($userId, array_merge([
             'page_number' => $page
         ], $queryParameters));
+    }
+
+    /**
+     * Get meetings pages count
+     *
+     * @param string $userId
+     * @param int $perPage
+     * @param array $queryParameters
+     * @return int
+     */
+    public function getPagesCount(string $userId, int $perPage = 30, array $queryParameters = []) : int
+    {
+        ['page_count' => $pageCount] = $this->list($userId, array_merge([
+            'page_size' => $perPage
+        ], $queryParameters));
+
+        return $pageCount;
+    }
+
+    /**
+     * Get meetings count
+     *
+     * @param string $userId
+     * @param array $queryParameters
+     * @return int
+     */
+    public function count(string $userId, array $queryParameters = []) : int
+    {
+        ['page_count' => $pageCount] = $this->list($userId, array_merge([
+            'page_size' => 1
+        ], $queryParameters));
+
+        return $pageCount;
     }
 
     /**
@@ -47,6 +81,7 @@ class Meetings extends Request
      * Update status
      *
      * @param string $id
+     * @param string $action
      * @return array|mixed
      */
     public function updateStatus(string $id, string $action)

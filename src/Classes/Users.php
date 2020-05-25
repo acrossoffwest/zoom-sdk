@@ -27,6 +27,7 @@ class Users extends Request
     /**
      * Get Users
      *
+     * @param array $queryParameters
      * @return array
      */
     public function list(array $queryParameters) : array
@@ -46,6 +47,37 @@ class Users extends Request
         return $this->list(array_merge([
             'page_number' => $page
         ], $queryParameters));
+    }
+
+    /**
+     * Get users pages count
+     *
+     * @param int $perPage
+     * @param array $queryParameters
+     * @return int
+     */
+    public function getPagesCount(int $perPage = 30, array $queryParameters = []) : int
+    {
+        ['page_count' => $pageCount] = $this->list(array_merge([
+            'page_size' => $perPage
+        ], $queryParameters));
+
+        return $pageCount;
+    }
+
+    /**
+     * Get users count
+     *
+     * @param array $queryParameters
+     * @return int
+     */
+    public function count(array $queryParameters = []) : int
+    {
+        ['page_count' => $pageCount] = $this->list(array_merge([
+            'page_size' => 1
+        ], $queryParameters));
+
+        return $pageCount;
     }
 
     /**
