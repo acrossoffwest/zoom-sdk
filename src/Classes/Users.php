@@ -30,7 +30,7 @@ class Users extends Request
      * @param array $queryParameters
      * @return array
      */
-    public function list(array $queryParameters) : array
+    public function list(array $queryParameters = []) : array
     {
         return $this->get('users', $queryParameters);
     }

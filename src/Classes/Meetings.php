@@ -11,6 +11,7 @@ class Meetings extends Request
      * List
      *
      * @param string $userId
+     * @param array $queryParameters
      * @return array|mixed
      */
     public function list(string $userId, array $queryParameters = [])
